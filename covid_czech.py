@@ -220,7 +220,7 @@ def draw_separate(df, sma):
 
 
 def main():
-    sma = 10
+    sma = 14  # number of days for simple moving average
     data_json = download_data(
         'https://'
         'onemocneni-aktualne.mzcr.cz/api/v2/covid-19/'

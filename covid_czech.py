@@ -92,14 +92,15 @@ def stat(df):
     print('=' * 82)
     print('=' * 82)
 
-    # plovouci prumer
-    df['confirmed'] = df['confirmed'].rolling(7).mean()
-    df['test'] = df['test'].rolling(7).mean()
-    df['death'] = df['death'].rolling(7).mean()
-    df['ag_test'] = df['ag_test'].rolling(7).mean()
-    df['in_hosp'] = df['in_hosp'].rolling(7).mean()
+    # simple moving average
+    sma = 14
+    df['confirmed'] = df['confirmed'].rolling(sma).mean()
+    df['test'] = df['test'].rolling(sma).mean()
+    df['death'] = df['death'].rolling(sma).mean()
+    df['ag_test'] = df['ag_test'].rolling(sma).mean()
+    df['in_hosp'] = df['in_hosp'].rolling(sma).mean()
     df['ventilation_available'] = \
-        df['ventilation_available'].rolling(7).mean()
+        df['ventilation_available'].rolling(sma).mean()
 
 
 def draw_df(df):

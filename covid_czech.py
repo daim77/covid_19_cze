@@ -74,7 +74,7 @@ def join_data(df_1, df_2, df_3):
     return df
 
 
-def stat(df):
+def stat(df, sma):
     print('=' * 82)
     print('Last DATA: ')
     print('=' * 82)
@@ -92,8 +92,7 @@ def stat(df):
     print('=' * 82)
     print('=' * 82)
 
-    # simple moving average
-    sma = 14
+    # simple moving average - sma
     df['confirmed'] = df['confirmed'].rolling(sma).mean()
     df['test'] = df['test'].rolling(sma).mean()
     df['death'] = df['death'].rolling(sma).mean()
@@ -169,14 +168,14 @@ def draw_df_zoomed(df):
     plt.show()
 
 
-def draw_separate(df):
+def draw_separate(df, sma):
     functions = np.array([
-        ['7 denní plovoucí průměr potvrzených případů za den',
-         '7 denní plovoucí průměr provedených PCR testů za den',
-         '7 denní plovoucí průměr denních úmrtí za den'
+        [f'{sma} denní plovoucí průměr potvrzených případů za den',
+         f'{sma} denní plovoucí průměr provedených PCR testů za den',
+         f'{sma} denní plovoucí průměr denních úmrtí za den'
          ],
-        ['7 denní plovoucí průměr provedených antigenních testů za den',
-         'Celkový 7 denní plovoucí průměr hospitalizovaných',
+        [f'{sma} denní plovoucí průměr provedených antigenních testů za den',
+         f'Celkový {sma} denní plovoucí průměr hospitalizovaných',
          'Celkový počet volných ventilátorů'
          ]
     ])
@@ -221,6 +220,7 @@ def draw_separate(df):
 
 
 def main():
+    sma = 10
     data_json = download_data(
         'https://'
         'onemocneni-aktualne.mzcr.cz/api/v2/covid-19/'
@@ -242,11 +242,11 @@ def main():
 
     df = join_data(df_1, df_2, df_3)
 
-    stat(df)
+    stat(df, sma)
 
     draw_df(df)
     draw_df_zoomed(df)
-    draw_separate(df)
+    draw_separate(df, sma)
 
 
 if __name__ == '__main__':
